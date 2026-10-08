@@ -30,18 +30,69 @@ const App = {
    */
   setupEventListeners: function() {
     const searchInput = document.getElementById("global-search-input");
+    const mobileSearchInput = document.getElementById("mobile-search-input");
+
     searchInput?.addEventListener("input", (e) => {
       this.searchQuery = e.target.value.trim().toLowerCase();
+      if (mobileSearchInput && mobileSearchInput.value !== e.target.value) {
+        mobileSearchInput.value = e.target.value;
+      }
       this.renderFundamentalsTopics();
       this.renderArchitectTopics();
     });
 
+    mobileSearchInput?.addEventListener("input", (e) => {
+      this.searchQuery = e.target.value.trim().toLowerCase();
+      if (searchInput && searchInput.value !== e.target.value) {
+        searchInput.value = e.target.value;
+      }
+      this.renderFundamentalsTopics();
+      this.renderArchitectTopics();
+    });
+
+    // Mobile Hamburger Menu Toggle
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+    const hamburgerIcon = document.getElementById("hamburger-icon");
+    const closeIcon = document.getElementById("close-icon");
+
+    mobileMenuBtn?.addEventListener("click", () => {
+      if (mobileDrawer) {
+        const isClosed = mobileDrawer.classList.contains("hidden");
+        if (isClosed) {
+          mobileDrawer.classList.remove("hidden");
+          hamburgerIcon?.classList.add("hidden");
+          closeIcon?.classList.remove("hidden");
+        } else {
+          mobileDrawer.classList.add("hidden");
+          hamburgerIcon?.classList.remove("hidden");
+          closeIcon?.classList.add("hidden");
+        }
+      }
+    });
+
+    // Auto-close mobile drawer when any link is clicked
+    document.querySelectorAll(".mobile-nav-link").forEach(link => {
+      link.addEventListener("click", () => {
+        if (mobileDrawer && !mobileDrawer.classList.contains("hidden")) {
+          mobileDrawer.classList.add("hidden");
+          hamburgerIcon?.classList.remove("hidden");
+          closeIcon?.classList.add("hidden");
+        }
+      });
+    });
+
     window.addEventListener("keydown", (e) => {
-      if ((e.key === "/" && document.activeElement !== searchInput) || 
+      if ((e.key === "/" && document.activeElement !== searchInput && document.activeElement !== mobileSearchInput) || 
           (e.ctrlKey && e.key === "k") || 
           (e.metaKey && e.key === "k")) {
         e.preventDefault();
-        searchInput?.focus();
+        if (window.innerWidth < 768 && mobileSearchInput) {
+          mobileDrawer?.classList.remove("hidden");
+          mobileSearchInput?.focus();
+        } else {
+          searchInput?.focus();
+        }
       }
       if (e.key === "Escape") {
         this.closeModal();
@@ -110,20 +161,20 @@ const App = {
             </p>
 
             <!-- Action Bar -->
-            <div class="flex flex-wrap items-center gap-3 py-1">
-              <button id="daily-toggle-analogy-btn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-semibold text-xs shadow-md transition flex items-center gap-2">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 py-1">
+              <button id="daily-toggle-analogy-btn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-semibold text-xs shadow-md transition flex items-center justify-center gap-2">
                 <span>💡</span> 
                 <span id="daily-toggle-analogy-text">Explain Like I'm New (Analogy)</span>
                 <span id="daily-toggle-icon">▼</span>
               </button>
 
-              <button id="daily-open-context-modal-btn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 hover:text-white font-semibold text-xs border border-sky-800/60 transition flex items-center gap-2">
+              <button id="daily-open-context-modal-btn" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 hover:text-white font-semibold text-xs border border-sky-800/60 transition flex items-center justify-center gap-2 text-center">
                 <span>📖</span> Full Context & Jargon Studio ➔
               </button>
             </div>
 
             <!-- Inline Analogy Drawer -->
-            <div id="daily-inline-analogy-drawer" class="hidden rounded-xl bg-slate-950/90 border border-sky-500/30 p-5 space-y-3 transition-all">
+            <div id="daily-inline-analogy-drawer" class="hidden rounded-xl bg-slate-950/90 border border-sky-500/30 p-4 sm:p-5 space-y-3 transition-all">
               <div class="flex items-center gap-2 text-sky-300 font-bold text-sm">
                 <span>🌱</span>
                 <h4>${ctx.analogyTitle || "Beginner Mental Model"}</h4>
@@ -132,9 +183,9 @@ const App = {
                 ${ctx.analogy || ctx.whatIsIt}
               </p>
               
-              <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs">
+              <div class="pt-2 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2">
                 <span class="text-slate-400">💡 <strong>Why We Need It:</strong> ${ctx.whyDoWeNeedIt ? ctx.whyDoWeNeedIt.substring(0, 110) + '...' : ''}</span>
-                <button id="drawer-deep-dive-btn" class="text-sky-400 hover:text-sky-300 font-semibold underline whitespace-nowrap ml-2">
+                <button id="drawer-deep-dive-btn" class="text-sky-400 hover:text-sky-300 font-semibold underline whitespace-nowrap self-start sm:self-auto sm:ml-2">
                   Full Walkthrough ➔
                 </button>
               </div>
@@ -278,7 +329,7 @@ const App = {
     const badgeClass = daily.track === "Fundamentals" ? "badge-fund" : "badge-arch";
 
     content.innerHTML = `
-      <div class="p-6 sm:p-8 modal-enter space-y-6">
+      <div class="p-4 sm:p-6 md:p-8 modal-enter space-y-6">
         <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-800">
           <div>
             <div class="flex items-center gap-2 mb-2">
@@ -562,7 +613,11 @@ const App = {
 
   updateBookmarkCount: function() {
     const el = document.getElementById("bookmark-count-badge");
+    const mobileEl = document.getElementById("mobile-bookmark-count-badge");
+    const drawerEl = document.getElementById("drawer-bookmark-count");
     if (el) el.textContent = this.bookmarks.length;
+    if (mobileEl) mobileEl.textContent = this.bookmarks.length;
+    if (drawerEl) drawerEl.textContent = this.bookmarks.length;
   },
 
   /**
@@ -595,7 +650,7 @@ const App = {
     const isBookmarked = this.bookmarks.includes(topic.id);
 
     content.innerHTML = `
-      <div class="p-6 sm:p-8 modal-enter">
+      <div class="p-4 sm:p-6 md:p-8 modal-enter">
         <div class="flex items-start justify-between gap-4 mb-4 pb-4 border-b border-slate-800">
           <div>
             <div class="flex items-center gap-2 mb-2">

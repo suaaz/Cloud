@@ -100,23 +100,28 @@ const InteractiveTools = {
             </span>
             <h3 class="text-lg font-bold text-white mt-1">VPC Packet Trace & Security Filter</h3>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-mono text-slate-400">Step ${this.simulatorStep + 1} of ${totalSteps}</span>
-            <button id="sim-prev-btn" class="px-3 py-1.5 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" ${this.simulatorStep === 0 ? 'disabled opacity-50 cursor-not-allowed' : ''}>
-              ◀ Prev
-            </button>
-            <button id="sim-next-btn" class="px-3 py-1.5 text-xs rounded bg-sky-600 hover:bg-sky-500 text-white font-semibold transition" ${this.simulatorStep === totalSteps - 1 ? 'disabled opacity-50 cursor-not-allowed' : ''}>
-              Next ▶
-            </button>
-            <button id="sim-reset-btn" class="px-3 py-1.5 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
-              Reset
-            </button>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+            <span class="text-xs font-mono text-slate-400">Step ${this.simulatorStep + 1}/${totalSteps}</span>
+            <div class="flex items-center gap-1.5">
+              <button id="sim-prev-btn" class="px-2.5 sm:px-3 py-1.5 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" ${this.simulatorStep === 0 ? 'disabled opacity-50 cursor-not-allowed' : ''}>
+                ◀ Prev
+              </button>
+              <button id="sim-next-btn" class="px-2.5 sm:px-3 py-1.5 text-xs rounded bg-sky-600 hover:bg-sky-500 text-white font-semibold transition" ${this.simulatorStep === totalSteps - 1 ? 'disabled opacity-50 cursor-not-allowed' : ''}>
+                Next ▶
+              </button>
+              <button id="sim-reset-btn" class="px-2.5 sm:px-3 py-1.5 text-xs rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+                Reset
+              </button>
+            </div>
           </div>
         </div>
 
         <!-- Visual Flow Nodes -->
-        <div class="bg-slate-950 p-6 rounded-lg border border-slate-800 my-4 overflow-x-auto">
-          <div class="min-w-[650px] flex items-center justify-between relative">
+        <div class="sm:hidden text-center text-[11px] text-slate-500 font-mono mb-1 flex items-center justify-center gap-1">
+          <span>👈 Swipe horizontally to view topology 👉</span>
+        </div>
+        <div class="bg-slate-950 p-4 sm:p-6 rounded-lg border border-slate-800 my-4 overflow-x-auto touch-scroll">
+          <div class="min-w-[650px] flex items-center justify-between relative py-2">
             <div class="absolute left-10 right-10 top-1/2 -translate-y-1/2 h-1 bg-slate-800 -z-0"></div>
 
             <!-- Client Node -->
@@ -314,7 +319,7 @@ const InteractiveTools = {
             <span class="text-2xl font-extrabold text-sky-400">-$${Math.round(savingsMonthly)} / mo</span>
           </div>
         </div>
-        <div class="text-[11px] text-slate-400 flex items-center justify-between border-t border-slate-800/80 pt-2">
+        <div class="text-[11px] text-slate-400 border-t border-slate-800/80 pt-2 leading-relaxed">
           <span>💡 <strong>FinOps Tip:</strong> Committing to a 3-Year Savings Plan or using Graviton (ARM) processors can slash compute bills by up to 72%!</span>
         </div>
       `;

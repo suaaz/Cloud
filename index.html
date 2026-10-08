@@ -70,9 +70,9 @@
         </div>
       </div>
 
-      <!-- Navigation Links -->
-      <nav class="flex items-center gap-1 sm:gap-3 text-xs font-medium">
-        <a href="#daily-section" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition hidden sm:inline-block">
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1 sm:gap-3 text-xs font-medium">
+        <a href="#daily-section" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
           Daily Concept
         </a>
         <a href="#fund-section" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
@@ -81,11 +81,14 @@
         <a href="#arch-section" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
           Architect
         </a>
-        <a href="#interactive-labs" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition hidden lg:inline-block">
+        <a href="#interactive-labs" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
           Labs
         </a>
         <a href="#about-section" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition">
           About
+        </a>
+        <a href="https://suaaz.github.io/CCNA/" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-lg bg-sky-950/70 text-sky-300 border border-sky-800/60 hover:bg-sky-900 transition flex items-center gap-1">
+          <span>🌐</span> CCNA Hub
         </a>
 
         <!-- Bookmarks Count -->
@@ -100,8 +103,70 @@
           </svg>
         </a>
       </nav>
+
+      <!-- Mobile Right Controls (Hamburger & Bookmark) -->
+      <div class="flex md:hidden items-center gap-2">
+        <span class="flex items-center gap-1 text-[11px] bg-slate-900 px-2 py-1 rounded-md border border-slate-800 text-amber-300">
+          ⭐ <span id="mobile-bookmark-count-badge">0</span>
+        </span>
+        <button id="mobile-menu-btn" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition" aria-label="Toggle Navigation Menu">
+          <svg id="hamburger-icon" class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="close-icon" class="w-5 h-5 fill-none stroke-current hidden" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Mobile Drawer Menu (Hidden by default, slides down on toggle) -->
+  <div id="mobile-drawer" class="hidden md:hidden glass-panel border-b border-slate-800/90 px-4 pt-3 pb-5 space-y-3 sticky top-16 z-30 shadow-2xl mobile-drawer-enter">
+    <!-- Mobile Search -->
+    <div class="relative w-full">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+        🔍
+      </span>
+      <input 
+        type="text" 
+        id="mobile-search-input" 
+        placeholder="Search cloud topics..." 
+        class="w-full bg-slate-900 border border-slate-700/80 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-sky-500"
+      >
+    </div>
+
+    <!-- Mobile Nav Links -->
+    <div class="grid grid-cols-2 gap-2 pt-1 text-xs font-medium">
+      <a href="#daily-section" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:text-sky-400 transition">
+        <span>✨</span> Daily Spotlight
+      </a>
+      <a href="#fund-section" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:text-sky-400 transition">
+        <span>☁️</span> Fundamentals
+      </a>
+      <a href="#arch-section" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:text-sky-400 transition">
+        <span>🏛️</span> Architect
+      </a>
+      <a href="#interactive-labs" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:text-sky-400 transition">
+        <span>🔬</span> VPC Labs
+      </a>
+      <a href="#about-section" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-200 hover:text-sky-400 transition">
+        <span>ℹ️</span> About
+      </a>
+      <a href="https://suaaz.github.io/CCNA/" target="_blank" rel="noopener noreferrer" class="mobile-nav-link flex items-center gap-2 p-2.5 rounded-xl bg-sky-950/60 border border-sky-800/80 text-sky-300 hover:text-white transition">
+        <span>🌐</span> CCNA Hub
+      </a>
+    </div>
+
+    <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+      <span class="flex items-center gap-1 font-mono text-[11px]">
+        ⭐ <strong class="text-amber-300" id="drawer-bookmark-count">0</strong> Saved Topics
+      </span>
+      <a href="https://github.com/suaaz/Cloud" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline flex items-center gap-1 text-[11px]">
+        GitHub Source ➔
+      </a>
+    </div>
+  </div>
 
   <!-- ================= MAIN CONTAINER ================= -->
   <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-16">
@@ -180,23 +245,23 @@
         </div>
 
         <!-- Domain Filters -->
-        <div class="flex flex-wrap items-center gap-1.5 text-xs">
-          <button onclick="App.filterFundDomain('all')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-sky-600 text-white font-semibold transition" data-domain="all">
+        <div class="flex items-center gap-1.5 text-xs overflow-x-auto no-scrollbar touch-scroll pb-1 sm:pb-0 sm:flex-wrap w-full sm:w-auto -mx-1 px-1">
+          <button onclick="App.filterFundDomain('all')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-sky-600 text-white font-semibold transition whitespace-nowrap flex-shrink-0" data-domain="all">
             All
           </button>
-          <button onclick="App.filterFundDomain('Cloud Concepts & Security')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Cloud Concepts & Security">
+          <button onclick="App.filterFundDomain('Cloud Concepts & Security')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Cloud Concepts & Security">
             Shared Security
           </button>
-          <button onclick="App.filterFundDomain('Global Infrastructure')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Global Infrastructure">
+          <button onclick="App.filterFundDomain('Global Infrastructure')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Global Infrastructure">
             Regions & AZs
           </button>
-          <button onclick="App.filterFundDomain('Compute & Containers')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Compute & Containers">
+          <button onclick="App.filterFundDomain('Compute & Containers')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Compute & Containers">
             Compute / VMs
           </button>
-          <button onclick="App.filterFundDomain('Storage & Databases')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Storage & Databases">
+          <button onclick="App.filterFundDomain('Storage & Databases')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Storage & Databases">
             Storage (S3/EBS)
           </button>
-          <button onclick="App.filterFundDomain('Networking')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Networking">
+          <button onclick="App.filterFundDomain('Networking')" class="fund-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Networking">
             VPC Networking
           </button>
         </div>
@@ -218,20 +283,20 @@
         </div>
 
         <!-- Domain Filters -->
-        <div class="flex flex-wrap items-center gap-1.5 text-xs">
-          <button onclick="App.filterArchDomain('all')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-purple-600 text-white font-semibold transition" data-domain="all">
+        <div class="flex items-center gap-1.5 text-xs overflow-x-auto no-scrollbar touch-scroll pb-1 sm:pb-0 sm:flex-wrap w-full sm:w-auto -mx-1 px-1">
+          <button onclick="App.filterArchDomain('all')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-purple-600 text-white font-semibold transition whitespace-nowrap flex-shrink-0" data-domain="all">
             All
           </button>
-          <button onclick="App.filterArchDomain('Resilient Architectures')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Resilient Architectures">
+          <button onclick="App.filterArchDomain('Resilient Architectures')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Resilient Architectures">
             High Availability
           </button>
-          <button onclick="App.filterArchDomain('Event-Driven & Decoupling')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Event-Driven & Decoupling">
+          <button onclick="App.filterArchDomain('Event-Driven & Decoupling')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Event-Driven & Decoupling">
             SQS / Decoupling
           </button>
-          <button onclick="App.filterArchDomain('Disaster Recovery')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Disaster Recovery">
+          <button onclick="App.filterArchDomain('Disaster Recovery')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Disaster Recovery">
             Disaster Recovery
           </button>
-          <button onclick="App.filterArchDomain('Automation & IaC')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition" data-domain="Automation & IaC">
+          <button onclick="App.filterArchDomain('Automation & IaC')" class="arch-filter-btn px-3 py-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition whitespace-nowrap flex-shrink-0" data-domain="Automation & IaC">
             Terraform / IaC
           </button>
         </div>
@@ -287,7 +352,7 @@
   </main>
 
   <!-- ================= TOPIC READER MODAL ================= -->
-  <div id="topic-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+  <div id="topic-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6 overflow-y-auto">
     <div class="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto glass-panel-elevated rounded-2xl border border-slate-700/80 shadow-2xl" id="topic-modal-content">
       <!-- Dynamically filled -->
     </div>
